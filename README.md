@@ -1,4 +1,4 @@
-# Ecommerce
+# Project: E-commerce website
 Designing APIs for an E-commerce Website
 
 ### **Product Requirements Document (PRD) for E-commerce Website**
