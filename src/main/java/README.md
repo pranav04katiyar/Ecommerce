@@ -18,19 +18,19 @@
 4. In src/main/java, create a new package named `com.project.ecommerce_productservice`.
 
 5. In the `ecommerce_productservice` package, create the following packages:
-   - > `model`: This package will contain the model classes.
-       - Model classes are created based on the nouns in the problem statement, here the nouns are:
+    - `model`: This package will contain the model classes.
+       - > Model classes are created based on the nouns in the problem statement, here the nouns are:
            - `Product` and
            - `Category`
-   - > `controller`: This package will contain the controller classes.
-       - REST suggests that controllers should be named after entities(the resource they are handling), so the controller classes will be:
+    - `controller`: This package will contain the controller classes.
+       - > REST suggests that controllers should be named after entities(the resource they are handling), so the controller classes will be:
          - `ProductController` and 
          - `CategoryController`
-   - > `repository`: This package will contain the repository classes.
-       - The repository classes will be:
+    - `repository`: This package will contain the repository classes.
+       - > The repository classes will be:
          - `ProductRepository` and
          - `CategoryRepository`
-   - > `service`: This package will contain the service classes.
-     > - The service classes will be:
+    - `service`: This package will contain the service classes.
+       - > The service classes will be:
          - `ProductService` and
          - `CategoryService`
