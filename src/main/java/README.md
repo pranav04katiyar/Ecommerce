@@ -2,11 +2,11 @@
 
 ## 1. Setting up the project
 1. Create a new project in IntelliJ IDEA with Spring Initializr, Maven, Java 17(Because current AWS can support JDK 17 beans) and add the following dependencies:
-  - Spring Web
-  - Spring Boot DevTools
-  - Lombok
-  - Spring Data JPA
-  - H2 Database
+  - - Spring Web
+  - - Spring Boot DevTools
+  - - Lombok
+  - - Spring Data JPA
+  - - H2 Database
 
 2. Name the project `ecommerce_productservice`.
 
