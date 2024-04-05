@@ -1,5 +1,6 @@
-# Project: E-commerce website
-Designing APIs for an E-commerce Website
+# Project: Microservices-led E-commerce website
+Designing APIs for an E-commerce Website.
+(Step-by-Step Guide: [Project Step-by-Step Guide](src/main/java/README.md))
 
 ### **Product Requirements Document (PRD) for E-commerce Website**
 
