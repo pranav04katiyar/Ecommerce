@@ -34,3 +34,14 @@
        - > The service classes will be:
          - `ProductService` and
          - `CategoryService`
+    - `DTO`: This package will contain the DTO classes.
+       - > The DTO classes will be:
+         - `FakeStoreProductDTOs` and
+         - `FakeStoreCategoryDTO`
+    - `config`: This package will contain the configuration classes.
+       - > The configuration classes will be:
+         - `ApplicatonConfigurations`: This class will contain the configurations to make beans and other configurations to be used in the application.
+    - `exception`: This package will contain the exception classes.
+       - > The exception classes will be:
+         - `ResourceNotFoundException` and
+         - `GlobalExceptionHandler`
