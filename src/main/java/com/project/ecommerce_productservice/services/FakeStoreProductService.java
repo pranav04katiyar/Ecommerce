@@ -1,9 +1,5 @@
 package com.project.ecommerce_productservice.services;
 
-import com.project.ecommerce_productservice.dtos.FakeStoreProductDTOs;
-import com.project.ecommerce_productservice.dtos.FakeStoreProductDTOs;
-import com.project.ecommerce_productservice.models.Category;
-import com.project.ecommerce_productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
