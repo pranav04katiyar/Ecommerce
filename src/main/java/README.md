@@ -46,7 +46,9 @@
          - `ResourceNotFoundException` and
          - `GlobalExceptionHandler`
 
-6. In the `model` package, the following classes are present:
+## 2. Designing the APIs
+
+1. In the `model` package, the following classes are present:
     - `Product`: This class will represent the product entity.
       - > Based on the API documentations and details, the Product class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long (Ultimately we use UUID but for now, Long over int because it is a wrapper class, it can be null, avoiding null pointer exceptions. Also, due to its size, it can store a large number of values (2^64))
@@ -60,7 +62,7 @@
         - `name`: String
         - `description`: String
 
-7. In the `controller` package, create the following classes:
+2. In the `controller` package, create the following classes:
     - `ProductController`: This class will contain the REST endpoints for the product entity. 
       - > Annotations to be used:
         - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
