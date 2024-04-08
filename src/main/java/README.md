@@ -30,7 +30,7 @@
        - > The repository classes will be:
          - `ProductRepository` and
          - `CategoryRepository`
-    - `service`: This package will contain the service classes.
+    - `service`: This package will contain the service classes, doing all the business logic, while calling the repository classes, as well as interacting with the DTO classes, Product and Category classes.
        - > The service classes will be:
          - `ProductService` and
          - `CategoryService`

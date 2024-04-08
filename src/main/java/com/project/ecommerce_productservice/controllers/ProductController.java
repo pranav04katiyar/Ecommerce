@@ -17,7 +17,7 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    @GetMapping()           //This method will be serving endpoints that start with /products/
+    @GetMapping()           //This method will be serving endpoints that start with /products
     public List<Product> getAllProducts() {
         return new ArrayList<>();
     }
