@@ -46,16 +46,36 @@
          - `ResourceNotFoundException` and
          - `GlobalExceptionHandler`
 
-6. In the `model` package, create the following classes:
+6. In the `model` package, the following classes are present:
     - `Product`: This class will represent the product entity.
-      - > The Product class will have the following attributes:
+      - > Based on the API documentations and details, the Product class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long (Ultimately we use UUID but for now, Long over int because it is a wrapper class, it can be null, avoiding null pointer exceptions. Also, due to its size, it can store a large number of values (2^64))
         - `name`: String
         - `description`: String
         - `price`: Double
         - `category`: Category 
     - `Category`: This class will represent the category entity.
-      - > The Category class will have the following attributes:
+      - > Based on the API documentations and details, the Category class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long
         - `name`: String
         - `description`: String
+
+7. In the `controller` package, create the following classes:
+    - `ProductController`: This class will contain the REST endpoints for the product entity. 
+      - > Annotations to be used:
+        - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
+          - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts. 
+        - `@RequestMapping`: This annotation is used to map web requests to specific handler classes and/or handler methods.
+      - > The ProductController class will have the following methods:
+        - `getAllProducts()`: This method will return a list of all products.
+        - `getProductById(Long id)`: This method will return a product by its id.
+        - `addProduct(Product product)`: This method will add a new product.
+        - `updateProduct(Long id, Product product)`: This method will update an existing product.
+        - `deleteProduct(Long id)`: This method will delete a product by its id.
+    - `CategoryController`: This class will contain the REST endpoints for the category entity.
+      - > The CategoryController class will have the following methods:
+        - `getAllCategories()`: This method will return a list of all categories.
+        - `getCategoryById(Long id)`: This method will return a category by its id.
+        - `addCategory(Category category)`: This method will add a new category.
+        - `updateCategory(Long id, Category category)`: This method will update an existing category.
+        - `deleteCategory(Long id)`: This method will delete a category by its id.
