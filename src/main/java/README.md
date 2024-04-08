@@ -55,7 +55,7 @@
         - `name`: String
         - `description`: String
         - `price`: Double
-        - `category`: Category 
+        - `category`: Category (enum isn't chosen as enum works when data is static and here, we might want to update the category table without changing the code)
     - `Category`: This class will represent the category entity.
       - > Based on the API documentations and details, the Category class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long
