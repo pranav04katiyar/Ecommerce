@@ -45,3 +45,17 @@
        - > The exception classes will be:
          - `ResourceNotFoundException` and
          - `GlobalExceptionHandler`
+
+6. In the `model` package, create the following classes:
+    - `Product`: This class will represent the product entity.
+      - > The Product class will have the following attributes:
+        - `id`: Long (Ultimately we use UUID but for now, Long over int because it is a wrapper class, it can be null, avoiding null pointer exceptions. Also, due to its size, it can store a large number of values (2^64))
+        - `name`: String
+        - `description`: String
+        - `price`: Double
+        - `category`: Category 
+    - `Category`: This class will represent the category entity.
+      - > The Category class will have the following attributes:
+        - `id`: Long
+        - `name`: String
+        - `description`: String
