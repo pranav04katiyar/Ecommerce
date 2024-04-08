@@ -53,6 +53,7 @@
       - > Based on the API documentations and details, the Product class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long (Ultimately we use UUID but for now, Long over int because it is a wrapper class, it can be null, avoiding null pointer exceptions. Also, due to its size, it can store a large number of values (2^64))
         - `name`: String
+        - `title`: String
         - `description`: String
         - `price`: Double
         - `category`: Category (enum isn't chosen as enum works when data is static and here, we might want to update the category table without changing the code)
@@ -60,7 +61,6 @@
       - > Based on the API documentations and details, the Category class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long
         - `name`: String
-        - `description`: String
 
 2. In the `controller` package, create the following classes:
     - `ProductController`: This class will contain the REST endpoints for the product entity. 
