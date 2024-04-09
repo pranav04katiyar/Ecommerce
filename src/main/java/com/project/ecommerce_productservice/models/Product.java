@@ -1,7 +1,6 @@
 package com.project.ecommerce_productservice.models;
 
 import lombok.Getter;
-
 @Getter
 public class Product {
     private Long id;    //Usually UUID is used

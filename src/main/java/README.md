@@ -50,7 +50,7 @@
 
 1. In the `model` package, the following classes are present:
     - `Product`: This class will represent the product entity.
-      - > Based on the API documentations and details, the Product class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
+      - > Based on the API documentations and details, the Product class will have the following private attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long (Ultimately we use UUID but for now, Long over int because it is a wrapper class, it can be null, avoiding null pointer exceptions. Also, due to its size, it can store a large number of values (2^64))
         - `name`: String
         - `title`: String
@@ -58,11 +58,15 @@
         - `price`: Double
         - `category`: Category (enum isn't chosen as enum works when data is static and here, we might want to update the category table without changing the code)
     - `Category`: This class will represent the category entity.
-      - > Based on the API documentations and details, the Category class will have the following attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
+      - > Based on the API documentations and details, the Category class will have the following private attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
         - `id`: Long
         - `name`: String
 
-2. In the `controller` package, create the following classes:
+2. Use `@Getter` annotation `public class Product` and `public class Category`. 
+   - This is a dependency called Lombok which we added at the initialisation of the project.
+   - It makes getters for the private attributes automatically.
+3. 
+4. In the `controller` package, create the following classes:
     - `ProductController`: This class will contain the REST endpoints for the product entity. 
       - > Annotations to be used:
         - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
