@@ -62,9 +62,9 @@
         - `id`: Long
         - `name`: String
 
-2. Use `@Getter` annotation `public class Product` and `public class Category`. 
+2. Use `@Getter` and `@Setter` annotations `public class Product` and `public class Category`. 
    - This is a dependency called Lombok which we added at the initialisation of the project.
-   - It makes getters for the private attributes automatically.
+   - It makes getters and setters for the private attributes automatically.
 3. 
 4. In the `controller` package, create the following classes:
     - `ProductController`: This class will contain the REST endpoints for the product entity. 
