@@ -47,7 +47,7 @@
          - `GlobalExceptionHandler`
 
 ## 2. Designing the APIs
-
+### Model Classes
 1. In the `model` package, the following classes are present:
     - `Product`: This class will represent the product entity.
       - > Based on the API documentations and details, the Product class will have the following private attributes for now (APIs taken from [FakeStoreAPI](https://fakestoreapi.com/docs)):
@@ -65,6 +65,8 @@
 2. Use `@Getter` and `@Setter` annotations `public class Product` and `public class Category`. 
    - This is a dependency called Lombok which we added at the initialisation of the project.
    - It makes getters and setters for the private attributes automatically.
+
+### ProductController and CategoryController
 3. In the `controller` package, the `ProductController` and `CategoryController` classes are present.
    - `ProductController`: This class will contain the REST endpoints for the product entity.
    - `CategoryController`: This class will contain the REST endpoints for the category entity.
@@ -75,6 +77,8 @@
        - This tells the controller that where should all the API calls with `/products` and `/categories` in their path be sent.
        - For ProductController, the request mapping will be `/products`. So all the API calls with `/products` in their path will be sent to ProductController.
        - For CategoryController, the request mapping will be `/categories`. So all the API calls with `/categories` in their path will be sent to CategoryController.
+
+### Building APIs in ProductController
 4. Now, let's start by building the first API in ProductController.
    - The first API will be a GET API to get all the products.
    - The API will be:
