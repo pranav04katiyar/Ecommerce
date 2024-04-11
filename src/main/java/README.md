@@ -92,6 +92,7 @@
      - If we put `/products` or just `/` in the `@GetMapping()` annotation, it will be `/products/products` or `/products/`, which is not correct.
    - The method will call the `ProductService` class to get all the products. 
      - For now, let's return an empty list. `return new ArrayList<>();`
+
 5. Let's make another API in the ProductController to get a product by its id.
    - The API will be:
      - `GET /products/{id}`
@@ -115,6 +116,7 @@
              `Long id` can be of any name, but `@GetMapping("/{id}")` and `@PathVariable("id")` should have the same name. 
      - The method will call the `ProductService` class to get the product by its id.
        - For now, let's return a new Product object. `return new Product();`
+
 6. Let's now build another API in the ProductController to add a new product.
    - The API will be:
      - `POST /products`
