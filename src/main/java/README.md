@@ -81,6 +81,7 @@
      - `GET /products`
    - The method will be:
      - `public List<Product> getAllProducts()`
+       - The method will return a list of all the products, the details of which are available in the `Product` Model class, that's why the return type is `List<Product>`.
    - The method will return a list of all the products.
    - The method will be annotated with `@GetMapping("/products")`.
    - The method will call the `ProductService` class to get all the products.
