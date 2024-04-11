@@ -10,5 +10,6 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     public List<Product> getAllProducts() {
+        return null;
     }
 }

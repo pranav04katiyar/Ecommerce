@@ -82,6 +82,6 @@
    - The method will be:
      - `public List<Product> getAllProducts()`
        - The method will return a list of all the products, the details of which are available in the `Product` Model class, that's why the return type is `List<Product>`.
-   - The method will return a list of all the products.
-   - The method will be annotated with `@GetMapping("/products")`.
+     - The method will return a list of all the products.
+   - Since it is a GET request, the method will be annotated with `@GetMapping("/products")`, to tell Spring that this method will handle all the GET requests with `/products` in their path, to get all the products.
    - The method will call the `ProductService` class to get all the products.
