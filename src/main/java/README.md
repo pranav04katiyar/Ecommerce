@@ -88,4 +88,36 @@
      - If we put `/products` or just `/` in the `@GetMapping()` annotation, it will be `/products/products` or `/products/`, which is not correct.
    - The method will call the `ProductService` class to get all the products. 
      - For now, let's return an empty list. `return new ArrayList<>();`
-5. 
+5. Let's make another API in the ProductController to get a product by its id.
+   - The API will be:
+     - `GET /products/{id}`
+       - The `{id}` is a path variable, which means the id will be passed in the path.
+       - The id will be a Long value, which will be passed in the path. Eg: `/products/1`, `/products/2`, etc.
+       - It has to be inside curly braces `{}`, to tell Spring that it is a path variable.
+         - If we write `/products/id`, Spring will consider `id` as a string and not a path variable, expecting a variable `id` to provide the value.
+   - The method will be:
+     - `public Product getProductById(@PathVariable Long id)`
+       - The method will return a product with the given id.
+     - For now, let's make a method to return only one product.
+       - `public Product getSingeProduct(@PathVariable("id) Long id)`
+         - Here, getSingleProduct method is having a parameter `id` which is a path variable, so we have to annotate it with `@PathVariable` to tell Spring that the value of `id` will be passed in the path.
+         - Important: In the code:
+           - ````java
+             @GetMapping("/{id}")
+             public Product getSingleProduct(@PathVariable("id") Long id) {
+                 return new Product();
+             }
+             ````
+             `Long id` can be of any name, but `@GetMapping("/{id}")` and `@PathVariable("id")` should have the same name. 
+     - The method will call the `ProductService` class to get the product by its id.
+       - For now, let's return a new Product object. `return new Product();`
+6. Let's now build another API in the ProductController to add a new product.
+   - The API will be:
+     - `POST /products`
+   - The method will be:
+     - `public Product addProduct(@RequestBody Product product)`
+       - The method will add a new product.
+       - The product details will be passed in the request body.
+       - The method will return the added product.
+     - The method will call the `ProductService` class to add the product.
+       - For now, let's return the product passed in the request body. `return product;`
