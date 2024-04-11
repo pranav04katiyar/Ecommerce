@@ -75,4 +75,12 @@
        - This tells the controller that where should all the API calls with `/products` and `/categories` in their path be sent.
        - For ProductController, the request mapping will be `/products`. So all the API calls with `/products` in their path will be sent to ProductController.
        - For CategoryController, the request mapping will be `/categories`. So all the API calls with `/categories` in their path will be sent to CategoryController.
-4. 
+4. Now, let's start by building the first API in ProductController.
+   - The first API will be a GET API to get all the products.
+   - The API will be:
+     - `GET /products`
+   - The method will be:
+     - `public List<Product> getAllProducts()`
+   - The method will return a list of all the products.
+   - The method will be annotated with `@GetMapping("/products")`.
+   - The method will call the `ProductService` class to get all the products.
