@@ -21,6 +21,9 @@ public class ProductController {
 
     @PostMapping()
     public Product addNewProduct(@RequestBody Product product) {
-        return product;
+        Product p = new Product();
+        p.getTitle("Added a new product");
+        return p;
+
     }
 }
