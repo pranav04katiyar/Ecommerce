@@ -66,14 +66,13 @@
    - This is a dependency called Lombok which we added at the initialisation of the project.
    - It makes getters and setters for the private attributes automatically.
 3. In the `controller` package, the `ProductController` and `CategoryController` classes are present.
-    - `ProductController`: This class will contain the REST endpoints for the product entity.
-        - > Annotations to be used:
-            - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
-                - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
-            - `@RequestMapping("/products")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
+   - `ProductController`: This class will contain the REST endpoints for the product entity.
    - `CategoryController`: This class will contain the REST endpoints for the category entity.
-       - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
-           - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
-       - `@RequestMapping("/categories")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
-
+   - > Annotations to be used:
+     - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
+       - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
+     - `@RequestMapping`: This annotation is used to map web requests to specific handler classes and/or handler methods.
+       - This tells the controller that where should all the API calls with `/products` and `/categories` in their path be sent.
+       - For ProductController, the request mapping will be `/products`. So all the API calls with `/products` in their path will be sent to ProductController.
+       - For CategoryController, the request mapping will be `/categories`. So all the API calls with `/categories` in their path will be sent to CategoryController.
 4. 
