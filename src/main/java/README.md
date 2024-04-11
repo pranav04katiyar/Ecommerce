@@ -65,26 +65,15 @@
 2. Use `@Getter` and `@Setter` annotations `public class Product` and `public class Category`. 
    - This is a dependency called Lombok which we added at the initialisation of the project.
    - It makes getters and setters for the private attributes automatically.
-3. 
-4. In the `controller` package, the `ProductController` and `CategoryController` classes are present.
-    - `ProductController`: This class will contain the REST endpoints for the product entity. 
-      - > Annotations to be used:
-        - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
-          - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts. 
-        - `@RequestMapping("/products")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
-      - > The ProductController class will have the following methods:
-        - `getAllProducts()`: This method will return a list of all products.
-        - `getProductById(Long id)`: This method will return a product by its id.
-        - `addProduct(Product product)`: This method will add a new product.
-        - `updateProduct(Long id, Product product)`: This method will update an existing product.
-        - `deleteProduct(Long id)`: This method will delete a product by its id.
-    - `CategoryController`: This class will contain the REST endpoints for the category entity.
-        - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
-            - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
-        - `@RequestMapping("/categories")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
-      - > The CategoryController class will have the following methods:
-        - `getAllCategories()`: This method will return a list of all categories.
-        - `getCategoryById(Long id)`: This method will return a category by its id.
-        - `addCategory(Category category)`: This method will add a new category.
-        - `updateCategory(Long id, Category category)`: This method will update an existing category.
-        - `deleteCategory(Long id)`: This method will delete a category by its id.
+3. In the `controller` package, the `ProductController` and `CategoryController` classes are present.
+    - `ProductController`: This class will contain the REST endpoints for the product entity.
+        - > Annotations to be used:
+            - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
+                - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
+            - `@RequestMapping("/products")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
+   - `CategoryController`: This class will contain the REST endpoints for the category entity.
+       - `@RestController`: This annotation is used to create RESTful web services using Spring MVC.
+           - It tells Spring that this class will serve as a controller for handling HTTP requests and will be the first class to be scanned when the application starts.
+       - `@RequestMapping("/categories")`: This annotation is used to map web requests to specific handler classes and/or handler methods.
+
+4. 
