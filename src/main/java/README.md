@@ -79,7 +79,7 @@
        - For CategoryController, the request mapping will be `/categories`. So all the API calls with `/categories` in their path will be sent to CategoryController.
 
 ### Building APIs in ProductController
-4. Now, let's start by building the first API in ProductController.
+4. _Now, let's start by building the first API in ProductController._
    - The first API will be a GET API to get all the products.
    - The API will be:
      - `GET /products`
@@ -93,7 +93,7 @@
    - The method will call the `ProductService` class to get all the products. 
      - For now, let's return an empty list. `return new ArrayList<>();`
 
-5. Let's make another API in the ProductController to get a product by its id.
+5. _Let's make another API in the ProductController to get a product by its id._
    - The API will be:
      - `GET /products/{id}`
        - The `{id}` is a path variable, which means the id will be passed in the path.
@@ -117,7 +117,7 @@
      - The method will call the `ProductService` class to get the product by its id.
        - For now, let's return a new Product object. `return new Product();`
 
-6. Let's now build another API in the ProductController to add a new product.
+6. _Let's now build another API in the ProductController to add a new product._
    - The API will be:
      - `POST /products`
    - The method will be:
