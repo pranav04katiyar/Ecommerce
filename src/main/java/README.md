@@ -115,9 +115,9 @@
    - The API will be:
      - `POST /products`
    - The method will be:
-     - `public Product addProduct(@RequestBody Product product)`
+     - `public Product addNewProduct(@RequestBody Product product)`
        - The method will add a new product.
-       - The product details will be passed in the request body.
+       - The product details will be passed in the body of the request. So the method will take a `Product` object as a parameter, annotated with `@RequestBody`, to tell Spring that the product details will be passed in the request.
        - The method will return the added product.
      - The method will call the `ProductService` class to add the product.
        - For now, let's return the product passed in the request body. `return product;`
