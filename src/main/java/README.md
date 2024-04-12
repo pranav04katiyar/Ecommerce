@@ -149,12 +149,16 @@
 ### Coding the APIs in Service Layer
 7. _Let's start by coding the first API in the ProductService class._
    - The first API will be to get all the products.
-   - The method will be:
-     - `public List<Product> getAllProducts()`
-       - The method will return a list of all the products.
-     - The method will return a list of all the products.
-   - Since it is a GET request, the method will be annotated with `@GetMapping()`, to tell Spring that this method will handle all the GET requests with `/products` in their path, to get all the products.
-     - Since the API Documentation says the path to get all the products is `/products`, we don't need to specify the path in the `@GetMapping()` annotation, as it is already specified in the `@RequestMapping()` annotation in the `ProductController` class.
-     - If we put `/products` or just `/` in the `@GetMapping()` annotation, it will be `/products/products` or `/products/`, which is not correct.
-   - The method will call the `ProductService` class to get all the products. 
-     - For now, let's return an empty list. `return new ArrayList<>();`
+     - All the business logic will be written in the service classes.
+       - The controller will get the request from the client and call the relevant service. When it will get the response from the service, it will give the response back to the client.
+       - Since the controller will call the service, the service should be an interface, so that we can have multiple implementations of the service.
+         - So that we can implement the same service by calling a third-party API, or by calling our own database, etc.
+     - The service layer also usually has a 1:1 mapping with the controller layer, meaning all the services w.r.t. products will be in the ProductService class and all the services w.r.t. categories will be in the CategoryService class.
+   - So let's create the `ProductService` interface in the `service` package.
+     - The interface will have the following methods:
+       - `List<Product> getAllProducts()`
+       - `Product getProductById(Long id)`
+       - `Product addNewProduct(Product product)`
+       - `Product updateProduct(Long id, Product product)`
+       - `Product replaceProduct(Long id, Product product)`
+       - `void deleteProduct(Long id)`
