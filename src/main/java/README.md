@@ -140,7 +140,7 @@
      - `DELETE /products/{id}`
        - The method will be:
            - `public void deleteProduct(@PathVariable Long id)`
-           - The method will delete the product with the given id.
-           - The id will be passed in the path.
+             - The method will delete the product with the given id.
+             - The id will be passed in the path.
            - The method will call the `ProductService` class to delete the product.
-           - For now, let's return nothing. `return;` 
+             - For now, let's return nothing. `return;` 
