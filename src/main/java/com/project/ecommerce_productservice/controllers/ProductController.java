@@ -33,6 +33,11 @@ public class ProductController {
         return p;
     }
 
+    @PutMapping("/{id}")
+    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+        return new Product();
+    }
+
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id) {
         //Delete the product with the given id
