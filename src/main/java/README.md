@@ -145,3 +145,16 @@
              - The id will be passed in the path.
            - The method will call the `ProductService` class to delete the product.
              - For now, let's return nothing. `return;` 
+
+### Coding the APIs in Service Layer
+7. _Let's start by coding the first API in the ProductService class._
+   - The first API will be to get all the products.
+   - The method will be:
+     - `public List<Product> getAllProducts()`
+       - The method will return a list of all the products.
+     - The method will return a list of all the products.
+   - Since it is a GET request, the method will be annotated with `@GetMapping()`, to tell Spring that this method will handle all the GET requests with `/products` in their path, to get all the products.
+     - Since the API Documentation says the path to get all the products is `/products`, we don't need to specify the path in the `@GetMapping()` annotation, as it is already specified in the `@RequestMapping()` annotation in the `ProductController` class.
+     - If we put `/products` or just `/` in the `@GetMapping()` annotation, it will be `/products/products` or `/products/`, which is not correct.
+   - The method will call the `ProductService` class to get all the products. 
+     - For now, let's return an empty list. `return new ArrayList<>();`
