@@ -117,7 +117,7 @@
      - The method will call the `ProductService` class to get the product by its id.
        - For now, let's return a new Product object. `return new Product();`
 
-6. _Let's now build another APIs in the ProductController to add a new product, update a product, and delete a product._
+6. _Let's now build another APIs in the ProductController to add a new product, update a product, replace a product and delete a product._
    1. The API will be:
      - `POST /products`
        - The method will be:
@@ -137,6 +137,15 @@
          - The method will call the `ProductService` class to update the product.
            - For now, let's return the product passed in the request body. `return product;`
    3. The API will be:
+     - `PUT /products/{id}`
+       - The method will be:
+         - `public Product replaceProduct(@PathVariable Long id, @RequestBody Product product)`
+           - The method will replace the product with the given id.
+           - The id will be passed in the path and the product details will be passed in the body of the request.
+           - The method will return the replaced product.
+         - The method will call the `ProductService` class to replace the product.
+           - For now, let's return the product passed in the request body. `return product;`
+   4. The API will be:
      - `DELETE /products/{id}`
        - The method will be:
            - `public void deleteProduct(@PathVariable Long id)`
