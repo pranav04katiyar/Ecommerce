@@ -25,4 +25,16 @@ public class ProductController {
         p.setTitle("New Product");
         return p;
     }
+
+    @PatchMapping("/{id}")
+    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+        Product p = new Product();
+        p.setTitle("Updated Product");
+        return p;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id) {
+        //Delete the product with the given id
+    }
 }

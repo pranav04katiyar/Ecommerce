@@ -117,13 +117,30 @@
      - The method will call the `ProductService` class to get the product by its id.
        - For now, let's return a new Product object. `return new Product();`
 
-6. _Let's now build another API in the ProductController to add a new product._
-   - The API will be:
+6. _Let's now build another APIs in the ProductController to add a new product, update a product, and delete a product._
+   1. The API will be:
      - `POST /products`
-   - The method will be:
-     - `public Product addNewProduct(@RequestBody Product product)`
-       - The method will add a new product.
-       - The product details will be passed in the body of the request. So the method will take a `Product` object as a parameter, annotated with `@RequestBody`, to tell Spring that the product details will be passed in the request.
-       - The method will return the added product.
-     - The method will call the `ProductService` class to add the product.
-       - For now, let's return the product passed in the request body. `return product;`
+       - The method will be:
+         - `public Product addNewProduct(@RequestBody Product product)`
+           - The method will add a new product.
+           - The product details will be passed in the body of the request. So the method will take a `Product` object as a parameter, annotated with `@RequestBody`, to tell Spring that the product details will be passed in the request.
+           - The method will return the added product.
+         - The method will call the `ProductService` class to add the product.
+           - For now, let's return the product passed in the request body. `return product;`
+   2. The API will be:
+     - `PATCH /products/{id}`
+       - The method will be:
+         - `public Product updateProduct(@PathVariable Long id, @RequestBody Product product)`
+           - The method will update the product with the given id.
+           - The id will be passed in the path and the product details will be passed in the body of the request.
+           - The method will return the updated product.
+         - The method will call the `ProductService` class to update the product.
+           - For now, let's return the product passed in the request body. `return product;`
+   3. The API will be:
+     - `DELETE /products/{id}`
+       - The method will be:
+           - `public void deleteProduct(@PathVariable Long id)`
+           - The method will delete the product with the given id.
+           - The id will be passed in the path.
+           - The method will call the `ProductService` class to delete the product.
+           - For now, let's return nothing. `return;` 
