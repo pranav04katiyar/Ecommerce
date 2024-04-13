@@ -155,10 +155,7 @@
          - So that we can implement the same service by calling a third-party API, or by calling our own database, etc.
      - The service layer also usually has a 1:1 mapping with the controller layer, meaning all the services w.r.t. products will be in the ProductService class and all the services w.r.t. categories will be in the CategoryService class.
    - So let's create the `ProductService` interface in the `service` package.
-     - The interface will have the following methods:
-       - `List<Product> getAllProducts()`
-       - `Product getProductById(Long id)`
-       - `Product addNewProduct(Product product)`
-       - `Product updateProduct(Long id, Product product)`
-       - `Product replaceProduct(Long id, Product product)`
-       - `void deleteProduct(Long id)`
+     -  Let's just create `Product getSingleProduct();` method for now.
+   - Now let's create an implementation of this interface. For now let's use FakeStoreAPIs, so we create `FakeStoreProductService` class in the `service` package.
+     - The `FakeStoreProductService` class will implement the `ProductService` interface.
+     - The `FakeStoreProductService` class will have a method `getSingleProduct()` which will return a new Product object.
