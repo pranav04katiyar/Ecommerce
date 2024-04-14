@@ -209,6 +209,7 @@
         ```
         public Product getSingleProduct(Long id) {
             FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
+            return convertToProduct(fakeStoreProductDTO);
         }
         ```
    - The RestTemplate object has a lot of methods already present in its code like `getForObject()`, `postForObject()`, etc.
@@ -231,17 +232,36 @@
            - `image`: String
          - The `FakeStoreProductDTO` class will have a constructor, getters, and setters.
 
-12. The `getForObject()` method will convert the JSON response to a `FakeStoreProductDTO` object.
-     - But the method wants to return a Product object, so we need to convert the `FakeStoreProductDTO` object to a `Product` object.
-     - So let's create a method in the `FakeStoreProductService` class to do so:
-     - ```
-       private Product convertToProduct(FakeStoreProductDTO fakeStoreProductDTO) {
-           Product product = new Product();
-           product.setId(fakeStoreProductDTO.getId());
-           product.setTitle(fakeStoreProductDTO.getTitle());
-           product.setPrice(fakeStoreProductDTO.getPrice());
-           product.setDescription(fakeStoreProductDTO.getDescription());
-           product.setCategory(Category.valueOf(fakeStoreProductDTO.getCategory().toUpperCase()));
-           return product;
-       }
-       ```
+   - The `getForObject()` method will convert the JSON response to a `FakeStoreProductDTO` object.
+        - But the method wants to return a Product object, so we need to convert the `FakeStoreProductDTO` object to a `Product` object.
+        - So let's create a method in the `FakeStoreProductService` class to do so:
+        - ```
+          private Product convertToProduct(FakeStoreProductDTO fakeStoreProductDTO) {
+              Product product = new Product();
+              product.setId(fakeStoreProductDTO.getId());
+              product.setTitle(fakeStoreProductDTO.getTitle());
+              product.setPrice(fakeStoreProductDTO.getPrice());
+              product.setDescription(fakeStoreProductDTO.getDescription());
+              product.setImageUrl(fakeStoreProductDTO.getImage()); 
+              product.setCategory(new Category);
+              product.setTitle(fakeStoreProductDTO.getCategory());
+              return product;
+          }
+          ```
+          - This is then used in the `getSingleProduct()` method to convert the `FakeStoreProductDTO` object to a `Product` object.
+
+6. Now we need to call this service in the `ProductController` class.
+   - So let's create a private attribute and a constructor in the `ProductController` class to inject the `ProductService` bean.
+   - ```
+     private ProductService productService;
+     
+     @Autowired
+     public ProductController(ProductService productService) {
+         this.productService = productService;
+     }
+     ```
+     - The `@Autowired` annotation is used to inject the `ProductService` bean into the `ProductController` class.
+       - The `@Autowired` annotation tells Spring that the `ProductService` bean will be injected into the `ProductController` class.
+       - Why are we able to use `@Autowired` here?
+         - Because we have annotated the `ProductService` class or one of its implementations with `@Service`, so Spring knows that the `ProductService` class is a service class and it will be scanned by Spring when the application starts. 
+   
