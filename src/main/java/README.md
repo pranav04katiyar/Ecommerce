@@ -146,8 +146,8 @@
            - The method will call the `ProductService` class to delete the product.
              - For now, let's return nothing. `return;` 
 
-### Coding the APIs in Service Layer
-7. _Let's start by coding the first API in the ProductService class._
+## 3. Coding the APIs in Service Layer
+1. _Let's start by coding the first API in the ProductService class._
    - The first API will be to get all the products.
      - All the business logic will be written in the service classes.
        - The controller will get the request from the client and call the relevant service. When it will get the response from the service, it will give the response back to the client.
@@ -159,12 +159,12 @@
    - Now let's create an implementation of this interface. For now let's use FakeStoreAPIs, so we create `FakeStoreProductService` class in the `service` package.
      - The `FakeStoreProductService` class will implement the `ProductService` interface.
      - The `FakeStoreProductService` class will have a method `getSingleProduct(Long id)` which will return a new Product object.
-#### Calling Third-Party APIs
-8. Now we need to make a third-party API call to FakeStoreAPI. 
+### Calling Third-Party APIs
+2. Now we need to make a third-party API call to FakeStoreAPI. 
    - To do so, we need to use a Maven Library/Dependency called `RestTemplate`, which tells Spring that we are going to make a REST API call.
    - If we create a bean of RestTemplate, we can use it in the `FakeStoreProductService` class to make a REST API call as well as in other future classes, as the bean will be available in the application context of the application.
      - Spring's Application context is a common place where all the beans are stored, which can then be used to get the beans and use them in the application.
-9. So let's create a bean of RestTemplate in the `ApplicationConfigurations` class in the `config` package.
+3. So let's create a bean of RestTemplate in the `ApplicationConfigurations` class in the `config` package.
    - Create a `config` package in the `ecommerce_productservice` package.
    - Create a class `ApplicationConfigurations` in the `config` package.
    - Annotate the method with `@Bean` to tell Spring that this method will return a bean.
@@ -179,8 +179,7 @@
        - You can create multiple beans of RestTemplate, but it is not recommended as it will create multiple objects of RestTemplate, which will consume more memory, and it defeats the purpose of using making a Bean in the first place.
        - The RestTemplateBuilder is a builder class to build the RestTemplate object.
        - The build() method will build the RestTemplate object.
-     
-10. Now, use this bean in the `FakeStoreProductService`:
+4. Now, use this bean in the `FakeStoreProductService`:
    - Create a private attribute and a constructor in the `FakeStoreProductService` class to inject the RestTemplate bean.
    - ```
      private RestTemplate restTemplate;
@@ -205,7 +204,7 @@
        - To do so, we need to tell Spring that the `ApplicationConfigurations` class is a configuration class, so that Spring can scan the class and find the bean.
        - So we use the `@Configuration` annotation on the `ApplicationConfigurations` class.
       
-11. Now, let's make a REST API call to FakeStoreAPI to get a product by its id.
+5. Now, let's make a REST API call to FakeStoreAPI to get a product by its id.
    - In the `services` package, we have a method `getSingleProduct(Long id)` which will call the `FakeStoreProductService` class to get the product by its id using the FakeStoreAPI through the RestTemplate bean:
         ```
         public Product getSingleProduct(Long id) {
@@ -216,7 +215,7 @@
      - The `getForObject()` method is used to make a GET request to the given URL and return the response in the form of an object of the given class.
      - The first parameter is the URL of the API.
      - The second parameter is the class of the object in which the response will be converted.
-       ###### DTOs:
+       #### DTOs:
        - But the response will be in the form of JSON, so we need to convert the JSON response to a Product object.
        - This is done in DTO classes.
          - DTOs are datatype that is there to only talk externally.
@@ -234,3 +233,15 @@
 
 12. The `getForObject()` method will convert the JSON response to a `FakeStoreProductDTO` object.
      - But the method wants to return a Product object, so we need to convert the `FakeStoreProductDTO` object to a `Product` object.
+     - So let's create a method in the `FakeStoreProductService` class to do so:
+     - ```
+       private Product convertToProduct(FakeStoreProductDTO fakeStoreProductDTO) {
+           Product product = new Product();
+           product.setId(fakeStoreProductDTO.getId());
+           product.setTitle(fakeStoreProductDTO.getTitle());
+           product.setPrice(fakeStoreProductDTO.getPrice());
+           product.setDescription(fakeStoreProductDTO.getDescription());
+           product.setCategory(Category.valueOf(fakeStoreProductDTO.getCategory().toUpperCase()));
+           return product;
+       }
+       ```
