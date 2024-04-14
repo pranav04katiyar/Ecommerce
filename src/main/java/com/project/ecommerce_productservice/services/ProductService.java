@@ -4,5 +4,5 @@ import com.project.ecommerce_productservice.models.Product;
 
 public interface ProductService {
 
-    Product getSingleProduct();
+    Product getSingleProduct(Long id);
 }

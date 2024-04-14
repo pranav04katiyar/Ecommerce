@@ -155,7 +155,24 @@
          - So that we can implement the same service by calling a third-party API, or by calling our own database, etc.
      - The service layer also usually has a 1:1 mapping with the controller layer, meaning all the services w.r.t. products will be in the ProductService class and all the services w.r.t. categories will be in the CategoryService class.
    - So let's create the `ProductService` interface in the `service` package.
-     -  Let's just create `Product getSingleProduct();` method for now.
+     -  Let's just create `Product getSingleProduct(Long id);` method for now.
    - Now let's create an implementation of this interface. For now let's use FakeStoreAPIs, so we create `FakeStoreProductService` class in the `service` package.
      - The `FakeStoreProductService` class will implement the `ProductService` interface.
-     - The `FakeStoreProductService` class will have a method `getSingleProduct()` which will return a new Product object.
+     - The `FakeStoreProductService` class will have a method `getSingleProduct(Long id)` which will return a new Product object.
+#### Calling Third-Party APIs
+8. Now we need to make a third-party API call to FakeStoreAPI. 
+   - To do so, we need to use a Maven Library/Dependency called `RestTemplate`, which tells Spring that we are going to make a REST API call.
+   - If we create a bean of RestTemplate, we can use it in the `FakeStoreProductService` class to make a REST API call as well as in other future classes, as the bean will be available in the application context of the application.
+     - Spring's Application context is a common place where all the beans are stored, which can then be used to get the beans and use them in the application.
+9. So let's create a bean of RestTemplate in the `ApplicationConfigurations` class in the `config` package.
+   - Create a `config` package in the `ecommerce_productservice` package.
+   - Create a class `ApplicationConfigurations` in the `config` package.
+   - Annotate the method with `@Bean` to tell Spring that this method will return a bean.
+   - The method will be:
+     ```
+       public RestTemplate getRestTemplate() {
+           return new RestTemplateBuilder().build();
+       }
+     ```
+     - The method will return a new RestTemplate object.
+ 
