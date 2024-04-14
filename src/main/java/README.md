@@ -175,4 +175,62 @@
        }
      ```
      - The method will return a new RestTemplate object.
- 
+       - It is not creating a Singleton object, but a new object is acting as a Singleton object, as it is created only once and used throughout the application.
+       - You can create multiple beans of RestTemplate, but it is not recommended as it will create multiple objects of RestTemplate, which will consume more memory, and it defeats the purpose of using making a Bean in the first place.
+       - The RestTemplateBuilder is a builder class to build the RestTemplate object.
+       - The build() method will build the RestTemplate object.
+     
+10. Now, use this bean in the `FakeStoreProductService`:
+   - Create a private attribute and a constructor in the `FakeStoreProductService` class to inject the RestTemplate bean.
+   - ```
+     private RestTemplate restTemplate;
+         
+     @Autowired
+     public FakeStoreProductService(RestTemplate restTemplate) {
+         this.restTemplate = restTemplate;
+     }
+     ```
+     - The `@Autowired` annotation is used to inject the RestTemplate bean into the `FakeStoreProductService` class.
+     - The `@Autowired` annotation tells Spring that the RestTemplate bean will be injected into the `FakeStoreProductService` class.
+     - We need to use the `@Autowired` annotation because we are not creating the RestTemplate object using the `new` keyword, but we are injecting the bean created in the `ApplicationConfigurations` class.
+     - To use `@Autowired`, we need to put `@Service` annotation on the `FakeStoreProductService` class, to tell Spring that this class is a service class.
+       - The `@Service` annotation is used to tell Spring that this class is a service class and it will be scanned by Spring when the application starts.
+            
+   - To summarize,
+     - The `FakeStoreProductService` class is a service class, so it is annotated with `@Service`.
+     - We tell Spring that we need an object of RestTemplate in the `FakeStoreProductService` class, in order to make a REST API call.
+     - We also tell Spring that we will not create the RestTemplate object using the `new` keyword, but we will inject the bean we created in the `ApplicationConfigurations` class.
+     - So we use the `@Autowired` annotation to inject the RestTemplate bean into the `FakeStoreProductService` class.
+     - Here the issue arises that Spring doesn't know where to find the RestTemplate bean, so we need to tell Spring where to find the bean.
+       - To do so, we need to tell Spring that the `ApplicationConfigurations` class is a configuration class, so that Spring can scan the class and find the bean.
+       - So we use the `@Configuration` annotation on the `ApplicationConfigurations` class.
+      
+11. Now, let's make a REST API call to FakeStoreAPI to get a product by its id.
+   - In the `services` package, we have a method `getSingleProduct(Long id)` which will call the `FakeStoreProductService` class to get the product by its id using the FakeStoreAPI through the RestTemplate bean:
+        ```
+        public Product getSingleProduct(Long id) {
+            FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
+        }
+        ```
+   - The RestTemplate object has a lot of methods already present in its code like `getForObject()`, `postForObject()`, etc.
+     - The `getForObject()` method is used to make a GET request to the given URL and return the response in the form of an object of the given class.
+     - The first parameter is the URL of the API.
+     - The second parameter is the class of the object in which the response will be converted.
+       ###### DTOs:
+       - But the response will be in the form of JSON, so we need to convert the JSON response to a Product object.
+       - This is done in DTO classes.
+         - DTOs are datatype that is there to only talk externally.
+         - The DTO classes will have the same attributes as the API response, but the attributes will be public.
+       - So let's create a DTO class `FakeStoreProductDTO` in the `DTO` package.
+         - The `FakeStoreProductDTO` class will have the same attributes as the API response.
+         - The `FakeStoreProductDTO` class will have the following attributes:
+           - `id`: Long
+           - `title`: String
+           - `price`: Double
+           - `description`: String
+           - `category`: String
+           - `image`: String
+         - The `FakeStoreProductDTO` class will have a constructor, getters, and setters.
+
+12. The `getForObject()` method will convert the JSON response to a `FakeStoreProductDTO` object.
+     - But the method wants to return a Product object, so we need to convert the `FakeStoreProductDTO` object to a `Product` object.
