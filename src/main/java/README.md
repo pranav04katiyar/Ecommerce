@@ -1,7 +1,7 @@
 # Project Step-by-Step Guide
 
 ## 1. Setting up the project
-1. Create a new project in IntelliJ IDEA with Spring Initializr, Maven, Java 17(Because current AWS can support JDK 17 beans) and add the following dependencies:
+1. Create a new project in IntelliJ IDEA with Spring Initializr, Maven, Java 17(Because AWS Bean stock at the time of making this can support JDK 17 beans) and add the following dependencies:
     - Spring Web
     - Spring Boot DevTools
     - Lombok
