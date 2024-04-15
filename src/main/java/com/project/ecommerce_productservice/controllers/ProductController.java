@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {
-        return new Product();
+        return productService.getSingleProduct(id);
     }
 
     @PostMapping()

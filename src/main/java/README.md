@@ -265,3 +265,12 @@
        - Why are we able to use `@Autowired` here?
          - Because we have annotated the `ProductService` class or one of its implementations with `@Service`, so Spring knows that the `ProductService` class is a service class and it will be scanned by Spring when the application starts. 
    
+7. Change the `getSingleProduct()` method in the `ProductController` class to call the `ProductService` class to get the product by its id.
+   - ```
+     @GetMapping("/{id}")
+     public Product getSingleProduct(@PathVariable("id") Long id) {
+         return productService.getSingleProduct(id);
+     }
+     ```
+     - The `getSingleProduct()` method will call the `ProductService` class to get the product by its id.
+     - The method will return the product returned by the `ProductService` class.
