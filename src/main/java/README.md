@@ -148,6 +148,7 @@
              - For now, let's return nothing. `return;` 
 
 ## 3. Coding the APIs in Service Layer
+### Building Get Single Product API using Third-Party APIs(FakeStoreAPI)
 1. _Let's start by coding the first API in the ProductService class._
    - The first API will be to get all the products.
      - All the business logic will be written in the service classes.
@@ -160,7 +161,7 @@
    - Now let's create an implementation of this interface. For now let's use FakeStoreAPIs, so we create `FakeStoreProductService` class in the `service` package.
      - The `FakeStoreProductService` class will implement the `ProductService` interface.
      - The `FakeStoreProductService` class will have a method `getSingleProduct(Long id)` which will return a new Product object.
-### Calling Third-Party APIs
+#### Calling Third-Party APIs
 2. Now we need to make a third-party API call to FakeStoreAPI. 
    - To do so, we need to use a Maven Library/Dependency called `RestTemplate`, which tells Spring that we are going to make a REST API call.
    - If we create a bean of RestTemplate, we can use it in the `FakeStoreProductService` class to make a REST API call as well as in other future classes, as the bean will be available in the application context of the application.
@@ -280,3 +281,5 @@
    - The URL will be `http://localhost:8080/products/{id}`.
    - The id will be a Long value, which will be passed in the path. Eg: `http://localhost:8080/products/1`, `http://localhost:8080/products/2`, etc.
    - The response will be a product with the given id.
+
+#### Building Get All Products API using Third-Party APIs(FakeStoreAPI)
