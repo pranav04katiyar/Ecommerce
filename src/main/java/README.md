@@ -275,3 +275,8 @@
      ```
      - The `getSingleProduct()` method will call the `ProductService` class to get the product by its id.
      - The method will return the product returned by the `ProductService` class.
+8. Run the main file `Ecommerce_ProductServiceApplication.java` and test the API in Postman.
+   - The API will be `GET /products/{id}`.
+   - The URL will be `http://localhost:8080/products/{id}`.
+   - The id will be a Long value, which will be passed in the path. Eg: `http://localhost:8080/products/1`, `http://localhost:8080/products/2`, etc.
+   - The response will be a product with the given id.
