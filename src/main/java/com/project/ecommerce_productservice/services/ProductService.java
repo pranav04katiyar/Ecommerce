@@ -6,5 +6,5 @@ public interface ProductService {
 
     Product getSingleProduct(Long id);
 
-    Product addNewProduct(Product product);
+
 }
