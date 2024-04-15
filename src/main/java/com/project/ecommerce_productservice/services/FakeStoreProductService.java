@@ -32,5 +32,8 @@ public class FakeStoreProductService implements ProductService{
         return convertToProduct(fakeStoreProductDTO);
     }
 
-
+    public Product addNewProduct(Product product) {
+        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.postForObject("https://fakestoreapi.com/products", product, FakeStoreProductDTO.class);
+        return convertToProduct(fakeStoreProductDTO);
+    }
 }
