@@ -15,7 +15,8 @@
     - Add a `.gitignore` file suitable for Java projects.
     - Add a README.md file with the project name and a brief description.
 
-4. In src/main/java, create a new package named `com.project.ecommerce_productservice`.
+4. In src/main/java, we will find a package named `com.project.ecommerce_productservice`, which is the root package of the project.
+   - In this package, we will find a file named `Ecommerce_ProductServiceApplication.java`, which is the main class of the project.
 
 5. In the `ecommerce_productservice` package, create the following packages:
     - `model`: This package will contain the model classes.
