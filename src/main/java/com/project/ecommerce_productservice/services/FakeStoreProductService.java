@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
@@ -32,8 +35,15 @@ public class FakeStoreProductService implements ProductService{
         return convertToProduct(fakeStoreProductDTO);
     }
 
-    public Product addNewProduct(Product product) {
-        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.postForObject("https://fakestoreapi.com/products", product, FakeStoreProductDTO.class);
-        return convertToProduct(fakeStoreProductDTO);
+    public List<Product> getAllProducts() {
+        // Make a REST API call to FakeStoreAPI to get all the products
+        List<FakeStoreProductDTO> response = restTemplate.getForObject("https://fakestoreapi.com/products", List<FakeStoreProductDTO>.class);
+
+        // Convert the response to a list of Product objects
+        List<Product> products = new ArrayList<>();
+        for (FakeStoreProductDTO dto : response) {
+            products.add(convertToProduct(dto));
+        }
+        return products;
     }
 }

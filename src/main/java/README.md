@@ -161,7 +161,7 @@
    - Now let's create an implementation of this interface. For now let's use FakeStoreAPIs, so we create `FakeStoreProductService` class in the `service` package.
      - The `FakeStoreProductService` class will implement the `ProductService` interface.
      - The `FakeStoreProductService` class will have a method `getSingleProduct(Long id)` which will return a new Product object.
-#### Calling Third-Party APIs
+### Calling Third-Party APIs
 2. Now we need to make a third-party API call to FakeStoreAPI. 
    - To do so, we need to use a Maven Library/Dependency called `RestTemplate`, which tells Spring that we are going to make a REST API call.
    - If we create a bean of RestTemplate, we can use it in the `FakeStoreProductService` class to make a REST API call as well as in other future classes, as the bean will be available in the application context of the application.
@@ -282,4 +282,30 @@
    - The id will be a Long value, which will be passed in the path. Eg: `http://localhost:8080/products/1`, `http://localhost:8080/products/2`, etc.
    - The response will be a product with the given id.
 
-#### Building Get All Products API using Third-Party APIs(FakeStoreAPI)
+### Building Get All Products API using Third-Party APIs(FakeStoreAPI)
+1. We already have the getAllProducts() method in ProductController, so let's implement it in the ProductService.
+   - Create a method `getAllProducts()` in the `ProductService` interface.
+      ````
+      public List<Product> getAllProducts();
+      ````
+   - The `getAllProducts()` method will call the `FakeStoreProductService` class to get all the products using the FakeStoreAPI through the RestTemplate bean.
+  
+     ```
+     public List<Product> getAllProducts() {
+         // Make a REST API call to FakeStoreAPI to get all the products
+         List<FakeStoreProductDTO> response = restTemplate.getForObject("https://fakestoreapi.com/products", List<FakeStoreProductDTO>.class);
+         
+         // Convert the response to a list of Product objects
+         List<Product> products = new ArrayList<>();
+         for (FakeStoreProductDTO dto : response) {
+             products.add(convertToProduct(dto));
+         }
+         
+         return products;
+     }
+     ```
+     - Here, in response, we are getting an error of `Type mismatch: cannot convert from List<FakeStoreProductDTO> to List<FakeStoreProductDTO>.class`.
+     - Java is not allowing to convert anything to List of a class, so we need to use a workaround.
+     - This happens because of Java Generics.
+       - 
+       
