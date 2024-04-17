@@ -37,7 +37,7 @@ public class FakeStoreProductService implements ProductService{
 
     public List<Product> getAllProducts() {
         // Make a REST API call to FakeStoreAPI to get all the products
-        List<FakeStoreProductDTO> response = restTemplate.getForObject("https://fakestoreapi.com/products", List<FakeStoreProductDTO>.class);
+        FakeStoreProductDTO[] response = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
 
         // Convert the response to a list of Product objects
         List<Product> products = new ArrayList<>();

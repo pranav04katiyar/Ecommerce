@@ -304,8 +304,44 @@
          return products;
      }
      ```
-     - Here, in response, we are getting an error of `Type mismatch: cannot convert from List<FakeStoreProductDTO> to List<FakeStoreProductDTO>.class`.
-     - Java is not allowing to convert anything to List of a class, so we need to use a workaround.
-     - This happens because of Java Generics.
-       - 
-       
+   - Here, in response, we are getting an error of `Type mismatch: cannot convert from List<FakeStoreProductDTO> to List<FakeStoreProductDTO>.class`.
+      - Java is not allowing to convert anything to List of a class, so we need to use a workaround.
+      - This happens because of Java Generics.
+        - Generics in Java are a way to create parameterised classes which can be adapted to have various implementation variations. They provide compile-time safety via type checks for classes.
+        - We can have List<Integer>, List<String>, List<Animal>, List<Product>, Stack<Animal>, Stack<Integer>, etc.
+        - List<FakeStoreProductDTO> is a parameterized type, so it is a type. (What is a type? A type is a set of values and a set of operations that can be performed on those values.)
+        - List<FakeStoreProductDTO>.class is not a type, so Java is not allowing it.
+      - Generics came after Java 5.
+      - Java tries to maintain backward compatibility as much as possible.
+        - Code written in older versions (eg: Java 1.0) should work in newer versions(eg: Java 8).
+      - So Java has a concept of Type Erasure.
+        - Let's use the parameterised type for compile time checks, but at runtime, the info will be removed.
+        - Example: for List<Animal>, Java will check at compile time that only Animal objects are added to the list.
+        - If let's say we add List<1> instead of List<Animal>, Java will give a compile-time error.
+        - But at runtime, Java will remove the type info and runs it as just a List, so that the code written in older versions will work in newer versions.
+   - The issue here is that for List<FakStoreProductDTO>.class, Java will run it as List.class, and we will get a hashmap of the list as Java internally uses a hashmap to store the list.
+        - > Whenever Java receives any JSON, it tries to convert it into the best possible object. If it is not able to convert it into the best possible object, it will convert it into a hashmap because hashmap is a key-value pair, and JSON is also a key-value pair.
+     - But we want a List of FakeStoreProductDTO objects. So we need to use a workaround.
+     - The workaround is very simple. Instead of using List<FakeStoreProductDTO>.class, we can use an array of FakeStoreProductDTO objects.
+       - So instead of `List<FakeStoreProductDTO>.class`, we can use `FakeStoreProductDTO[].class`.
+       - So the code will be:
+         ```
+         FakeStoreProductDTO[] response = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
+         ```
+     - Another workaround is to use a ParameterizedTypeReference.
+       - A ParameterizedTypeReference is a class in Java that is used to get the type of a parameterized class.
+       - So instead of `List<FakeStoreProductDTO>.class`, we can use `new ParameterizedTypeReference<List<FakeStoreProductDTO>>() {}`.
+       - The `new ParameterizedTypeReference<List<FakeStoreProductDTO>>() {}` is an anonymous class that extends the ParameterizedTypeReference class and will return the type of a List of FakeStoreProductDTO objects.
+       - So the code will be:
+         ```
+         List<FakeStoreProductDTO> response = restTemplate.exchange("https://fakestoreapi.com/products", HttpMethod.GET, null, new ParameterizedTypeReference<List<FakeStoreProductDTO>>() {}).getBody();
+         ```
+2. Now we need to call this service in the `ProductController` class.
+   - Change the `getAllProducts()` method in the `ProductController` class to call the `ProductService` class to get all the products.
+     - ```
+       @GetMapping()
+       public List<Product> getAllProducts() {
+           return productService.getAllProducts();
+       }
+       ```
+3. Run the main file `Ecommerce_ProductServiceApplication.java` and test the API in Postman.

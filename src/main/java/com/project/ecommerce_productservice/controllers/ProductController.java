@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping()
     public List<Product> getAllProducts() {
-        return new ArrayList<>();   //Return an empty list for now
+        return productService.getAllProducts();   //Return an empty list for now
     }
 
     @GetMapping("/{id}")
