@@ -4,7 +4,10 @@ import com.project.ecommerce_productservice.dtos.FakeStoreProductDTO;
 import com.project.ecommerce_productservice.models.Category;
 import com.project.ecommerce_productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpMessageConverterExtractor;
+import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -45,5 +48,43 @@ public class FakeStoreProductService implements ProductService{
             products.add(convertToProduct(dto));
         }
         return products;
+    }
+
+    @Override
+    public Product addNewProduct(Product product){
+        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.postForObject("https://fakestoreapi.com/products", product, FakeStoreProductDTO.class);
+        return convertToProduct(fakeStoreProductDTO);
+    }
+
+    @Override
+    public Product replaceProduct(Long id, Product product) {
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
+        HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
+        FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
+        return convertToProduct(response);
+    }
+
+    @Override
+    public Product updateProduct(Long id, Product product) {
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
+        HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
+        FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PATCH, requestCallback, responseExtractor);
+        return convertToProduct(response);
+    }
+
+    @Override
+    public Product deleteProduct(Long id) {
+        restTemplate.delete("https://fakestoreapi.com/products/" + id);
+        return null;
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return null;
+    }
+
+    @Override
+    public Product getProductByCategory(String category) {
+        return null;
     }
 }

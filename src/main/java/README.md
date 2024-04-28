@@ -345,3 +345,40 @@
        }
        ```
 3. Run the main file `Ecommerce_ProductServiceApplication.java` and test the API in Postman.
+
+### Building Replace Product API using Third-Party APIs(FakeStoreAPI)
+1. Go to the `ProductService` interface and create a method `replaceProduct(Long id, Product product);`.
+   - The `replaceProduct()` method will call the `FakeStoreProductService` class to replace the product with the given id using the FakeStoreAPI through the RestTemplate bean.
+2. Go to the `FakeStoreProductService` class and create a method `replaceProduct(Long id, Product product);`.
+    - The `replaceProduct()` method will call the FakeStoreAPI to replace the product with the given id.
+    - We will use the `RestTemplate` object to make a PUT request to the FakeStoreAPI to replace the product with the given id.
+      - Now, put method returns void type, but we need to return the replaced product.
+        - Let's see how put method works in RestTemplate.
+          - Within the put method, the main method is execute method.
+          - Execute method is a low-level method in RestTemplate, which requires a lot of parameters.
+          - Hence, we will use abstraction, i.e., high-level method (put method in this case) to avoid the complexity.
+        - There is another method called exchange method in RestTemplate.
+          - The exchange method is a high-level method in RestTemplate, which is used to make a request to the given URL with the given method and request entity and return the response entity.
+          - The exchange method is used to make a request to the given URL with the given method and request entity and return the response entity.
+          - The exchange method has the following parameters:
+            - The URL of the API.
+            - The method of the request.
+            - The request entity.
+            - The class of the response entity.
+          - The exchange method returns a response entity, which contains the response status, headers, and body.
+            - Both doexecute and exchange methods are similar methods, but exchange is a bit higher-level generic method
+        - So, let's use the exchange method to make a PUT request to the FakeStoreAPI to replace the product with the given id.
+          - We are not using Put For object because the API is returning us a JSON but put returns a void, so to avoid that we are using exchange.
+          - The code will be:
+            ```
+            restTemplate.exchange("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
+            ```
+- The entire API code is the following:
+  - ```
+    public Product replaceProduct(Long id, Product product) {
+        RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
+        HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
+        FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
+        return convertToProduct(response);
+    }
+    ```
