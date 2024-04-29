@@ -1,5 +1,6 @@
 package com.project.ecommerce_productservice.controllers;
 
+import com.project.ecommerce_productservice.dtos.FakeStoreProductDTO;
 import com.project.ecommerce_productservice.models.Product;
 import com.project.ecommerce_productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public Product addNewProduct(@RequestBody Product product) {
+    public Product addNewProduct(@RequestBody FakeStoreProductDTO product) {
         return productService.addNewProduct(product);
     }
 
@@ -43,11 +44,11 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return new Product();
+        return productService.replaceProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id) {
-        //Delete the product with the given id
+    public boolean deleteProduct(@PathVariable("id") Long id) {
+        return productService.deleteProduct(id);
     }
 }

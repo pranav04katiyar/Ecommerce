@@ -1,5 +1,6 @@
 package com.project.ecommerce_productservice.dtos;
 
+import com.project.ecommerce_productservice.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 

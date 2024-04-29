@@ -16,44 +16,71 @@ import java.util.List;
 @Service
 public class FakeStoreProductService implements ProductService{
     private RestTemplate restTemplate;
+    @Autowired
+    public FakeStoreProductService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
-    public Product convertToProduct(FakeStoreProductDTO fakeStoreProductDTO) {
+    public Product convertFakeStoreProductDTOToProduct(FakeStoreProductDTO fakeStoreProductDTO) {
         Product product = new Product();
         product.setId(fakeStoreProductDTO.getId());
         product.setTitle(fakeStoreProductDTO.getTitle());
         product.setDescription(fakeStoreProductDTO.getDescription());
-        product.setCategory(new Category());
+        Category category = new Category();
+        product.setCategory(category);
         product.setTitle(fakeStoreProductDTO.getCategory());
         product.setPrice(fakeStoreProductDTO.getPrice());
         product.setImageUrl(fakeStoreProductDTO.getImage());
         return product;
     }
-    @Autowired
-    public FakeStoreProductService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+
+    private FakeStoreProductDTO convertProductToFakeStoreProductDTO(Product product) {
+        FakeStoreProductDTO fakeStoreProductDTO = new FakeStoreProductDTO();
+        fakeStoreProductDTO.setTitle(product.getTitle());
+        fakeStoreProductDTO.setPrice(product.getPrice());
+        fakeStoreProductDTO.setCategory(product.getCategory().getTitle());
+        fakeStoreProductDTO.setDescription(product.getDescription());
+        fakeStoreProductDTO.setImage(product.getImageUrl());
+        return fakeStoreProductDTO;
     }
+
     @Override
     public Product getSingleProduct(Long id) {
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
-        return convertToProduct(fakeStoreProductDTO);
+        if(fakeStoreProductDTO != null){
+            System.out.println("Product found");
+            return convertFakeStoreProductDTOToProduct(fakeStoreProductDTO);
+        }
+        System.out.println("Product not found");
+        return null;
     }
 
     public List<Product> getAllProducts() {
         // Make a REST API call to FakeStoreAPI to get all the products
         FakeStoreProductDTO[] response = restTemplate.getForObject("https://fakestoreapi.com/products", FakeStoreProductDTO[].class);
 
-        // Convert the response to a list of Product objects
-        List<Product> products = new ArrayList<>();
-        for (FakeStoreProductDTO dto : response) {
-            products.add(convertToProduct(dto));
+        if(response != null){
+            // Convert the response to a list of Product objects
+            List<Product> products = new ArrayList<>();
+            System.out.println("Products found");
+            for (FakeStoreProductDTO dto : response) {
+                products.add(convertFakeStoreProductDTOToProduct(dto));
+            }
+            return products;
         }
-        return products;
+        System.out.println("No products found");
+        return null;
     }
 
     @Override
-    public Product addNewProduct(Product product){
-        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.postForObject("https://fakestoreapi.com/products", product, FakeStoreProductDTO.class);
-        return convertToProduct(fakeStoreProductDTO);
+    public Product addNewProduct(FakeStoreProductDTO productDto) {
+        FakeStoreProductDTO dto = restTemplate.postForObject("https://fakestoreapi.com/products", productDto, FakeStoreProductDTO.class);
+        if(dto != null){
+            System.out.println("Product added");
+            return convertFakeStoreProductDTOToProduct(dto);
+        }
+        System.out.println("Product not added");
+        return null;
     }
 
     @Override
@@ -61,7 +88,12 @@ public class FakeStoreProductService implements ProductService{
         RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
         HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
         FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PUT, requestCallback, responseExtractor);
-        return convertToProduct(response);
+        if(response != null){
+            System.out.println("Product replaced");
+            return convertFakeStoreProductDTOToProduct(response);
+        }
+        System.out.println("Product not replaced");
+        return null;
     }
 
     @Override
@@ -69,22 +101,32 @@ public class FakeStoreProductService implements ProductService{
         RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
         HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
         FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PATCH, requestCallback, responseExtractor);
-        return convertToProduct(response);
-    }
-
-    @Override
-    public Product deleteProduct(Long id) {
-        restTemplate.delete("https://fakestoreapi.com/products/" + id);
+        if(response != null){
+            System.out.println("Product replaced");
+            return convertFakeStoreProductDTOToProduct(response);
+        }
+        System.out.println("Product not replaced");
         return null;
     }
 
     @Override
-    public Category getCategory(Long id) {
-        return null;
+    public boolean deleteProduct(Long id) {
+        FakeStoreProductDTO responseDTO = restTemplate.exchange("https://fakestoreapi.com/products/" + id, HttpMethod.DELETE, null, FakeStoreProductDTO.class).getBody();
+        if (responseDTO != null){
+            System.out.println("Product deleted");
+            return true;
+        }
+        System.out.println("Product not deleted");
+        return false;
     }
 
-    @Override
-    public Product getProductByCategory(String category) {
-        return null;
-    }
+//    @Override
+//    public Category getCategory(Long id) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Product getProductByCategory(String category) {
+//        return null;
+//    }
 }
