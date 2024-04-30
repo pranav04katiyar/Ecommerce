@@ -5,9 +5,11 @@ import com.project.ecommerce_productservice.models.Category;
 import com.project.ecommerce_productservice.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -34,16 +36,6 @@ public class FakeStoreProductService implements ProductService{
         return product;
     }
 
-    private FakeStoreProductDTO convertProductToFakeStoreProductDTO(Product product) {
-        FakeStoreProductDTO fakeStoreProductDTO = new FakeStoreProductDTO();
-        fakeStoreProductDTO.setTitle(product.getTitle());
-        fakeStoreProductDTO.setPrice(product.getPrice());
-        fakeStoreProductDTO.setCategory(product.getCategory().getTitle());
-        fakeStoreProductDTO.setDescription(product.getDescription());
-        fakeStoreProductDTO.setImage(product.getImageUrl());
-        return fakeStoreProductDTO;
-    }
-
     @Override
     public Product getSingleProduct(Long id) {
         FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject("https://fakestoreapi.com/products/" + id, FakeStoreProductDTO.class);
@@ -66,6 +58,21 @@ public class FakeStoreProductService implements ProductService{
             for (FakeStoreProductDTO dto : response) {
                 products.add(convertFakeStoreProductDTOToProduct(dto));
             }
+            return products;
+        }
+        System.out.println("No products found");
+        return null;
+    }
+
+    @Override
+    public List<Product> getAllProductsByCategory(String category) {
+        FakeStoreProductDTO[] fakeStoreProducts = restTemplate.getForObject("https://fakestoreapi.com/products/category/" + category, FakeStoreProductDTO[].class);
+        List<Product> products = new ArrayList<>();
+        if (fakeStoreProducts != null){
+            for (FakeStoreProductDTO productDto : fakeStoreProducts) {
+                products.add(convertFakeStoreProductDTOToProduct(productDto));
+            }
+            System.out.println("Products found");
             return products;
         }
         System.out.println("No products found");
@@ -98,15 +105,15 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Product updateProduct(Long id, Product product) {
-        RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
-        HttpMessageConverterExtractor<FakeStoreProductDTO> responseExtractor = new HttpMessageConverterExtractor<>(FakeStoreProductDTO.class, restTemplate.getMessageConverters());
-        FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/" + id, HttpMethod.PATCH, requestCallback, responseExtractor);
-        if(response != null){
-            System.out.println("Product replaced");
-            return convertFakeStoreProductDTOToProduct(response);
-        }
-        System.out.println("Product not replaced");
-        return null;
+          RequestCallback requestCallback = restTemplate.httpEntityCallback(new FakeStoreProductDTO(), FakeStoreProductDTO.class);
+          ResponseExtractor<ResponseEntity<FakeStoreProductDTO>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDTO.class);
+          FakeStoreProductDTO response = restTemplate.execute("https://fakestoreapi.com/products/"+ id, HttpMethod.PATCH, requestCallback, responseExtractor).getBody();
+          if(response != null){
+              System.out.println("Product replaced");
+              return convertFakeStoreProductDTOToProduct(response);
+          }
+          System.out.println("Product not replaced");
+          return null;
     }
 
     @Override
@@ -120,13 +127,4 @@ public class FakeStoreProductService implements ProductService{
         return false;
     }
 
-//    @Override
-//    public Category getCategory(Long id) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Product getProductByCategory(String category) {
-//        return null;
-//    }
 }

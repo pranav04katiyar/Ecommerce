@@ -8,6 +8,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Ecommerce_ProductServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(Ecommerce_ProductServiceApplication.class, args);
-
     }
 }

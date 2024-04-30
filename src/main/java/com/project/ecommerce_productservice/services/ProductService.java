@@ -12,15 +12,13 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
-//    Category getCategory(Long id);
-//
-//    Product getProductByCategory(String category);
+    List<Product> getAllProductsByCategory(String category);
 
     Product addNewProduct(FakeStoreProductDTO productDTO);
 
-    Product updateProduct(Long id, Product product);
-
     Product replaceProduct(Long id, Product product);
+
+    Product updateProduct(Long id, Product product);
 
     boolean deleteProduct(Long id);
 }

@@ -20,14 +20,19 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping()
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();   //Return an empty list for now
-    }
-
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id) {
         return productService.getSingleProduct(id);
+    }
+
+    @GetMapping()
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Product> getAllProductsByCategory(@PathVariable("category") String category) {
+        return productService.getAllProductsByCategory(category);
     }
 
     @PostMapping()
@@ -37,9 +42,7 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        Product p = new Product();
-        p.setTitle("Updated Product");
-        return p;
+        return productService.updateProduct(id, product);
     }
 
     @PutMapping("/{id}")
