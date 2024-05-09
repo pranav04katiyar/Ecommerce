@@ -25,36 +25,36 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.ACCEPTED);
     }
 
     @GetMapping()
     public ResponseEntity<List<Product>> getAllProducts() {
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable("category") String category) {
-        return new ResponseEntity<>(productService.getAllProductsByCategory(category), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAllProductsByCategory(category), HttpStatus.ACCEPTED);
     }
 
     @PostMapping()
     public ResponseEntity<Product> addNewProduct(@RequestBody FakeStoreProductDTO product) {
-        return new ResponseEntity(productService.addNewProduct(product), HttpStatus.ACCEPTED);
+        return new ResponseEntity(productService.addNewProduct(product), HttpStatus.CREATED
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return new ResponseEntity<>(productService.replaceProduct(id, product), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productService.replaceProduct(id, product), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.ACCEPTED);
     }
 }
