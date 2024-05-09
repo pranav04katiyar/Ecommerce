@@ -4,6 +4,9 @@ import com.project.ecommerce_productservice.dtos.FakeStoreProductDTO;
 import com.project.ecommerce_productservice.models.Product;
 import com.project.ecommerce_productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,37 +24,37 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id) {
-        return productService.getSingleProduct(id);
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.getSingleProduct(id), HttpStatus.OK);
     }
 
     @GetMapping()
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
     @GetMapping("/category/{category}")
-    public List<Product> getAllProductsByCategory(@PathVariable("category") String category) {
-        return productService.getAllProductsByCategory(category);
+    public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable("category") String category) {
+        return new ResponseEntity<>(productService.getAllProductsByCategory(category), HttpStatus.OK);
     }
 
     @PostMapping()
-    public Product addNewProduct(@RequestBody FakeStoreProductDTO product) {
-        return productService.addNewProduct(product);
+    public ResponseEntity<Product> addNewProduct(@RequestBody FakeStoreProductDTO product) {
+        return new ResponseEntity(productService.addNewProduct(product), HttpStatus.ACCEPTED);
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return productService.updateProduct(id, product);
+    public ResponseEntity<Product> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return productService.replaceProduct(id, product);
+    public ResponseEntity<Product> replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
+        return new ResponseEntity<>(productService.replaceProduct(id, product), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteProduct(@PathVariable("id") Long id) {
-        return productService.deleteProduct(id);
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.OK);
     }
 }
