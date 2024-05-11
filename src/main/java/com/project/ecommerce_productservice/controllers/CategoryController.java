@@ -1,5 +1,6 @@
 package com.project.ecommerce_productservice.controllers;
 
+import com.project.ecommerce_productservice.exceptions.CategoryNotFoundException;
 import com.project.ecommerce_productservice.models.Category;
 import com.project.ecommerce_productservice.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<Category>> getAllCategories() {
+    public ResponseEntity<List<Category>> getAllCategories() throws CategoryNotFoundException {
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.ACCEPTED);
     }
 

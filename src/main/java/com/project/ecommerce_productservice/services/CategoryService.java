@@ -1,5 +1,6 @@
 package com.project.ecommerce_productservice.services;
 
+import com.project.ecommerce_productservice.exceptions.CategoryNotFoundException;
 import com.project.ecommerce_productservice.models.Category;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +11,5 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> getAllCategories();
+    List<Category> getAllCategories() throws CategoryNotFoundException;
 }
