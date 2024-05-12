@@ -30,6 +30,7 @@ public class ExceptionHandlers {
     public ResponseEntity<ProductNotExistExceptionDTO> handleProductNotExistException(ProductNotExistException exception) {
         ProductNotExistExceptionDTO productNotExistExceptionDTO = new ProductNotExistExceptionDTO();
         productNotExistExceptionDTO.setMessage(exception.getMessage());
+        productNotExistExceptionDTO.setDetails("No Product found. Check the product id and try again");
         return new ResponseEntity<>(productNotExistExceptionDTO, HttpStatus.NOT_FOUND);
     }
 
