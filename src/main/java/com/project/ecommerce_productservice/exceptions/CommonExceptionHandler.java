@@ -8,15 +8,19 @@ import org.springframework.http.ResponseEntity;
 @Getter
 @Setter
 public class CommonExceptionHandler {
-    public ResponseEntity<String> CommonExceptionHandler(ProductNotExistException exception) {
+    public ResponseEntity<String> handleProductNotExistException(ProductNotExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<String> CommonExceptionHandler(CategoryNotFoundException exception) {
+    public ResponseEntity<String> handleCategoryNotFoundException(CategoryNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<String> CommonExceptionHandler(PermissionDeniedException exception) {
+    public ResponseEntity<String> handlePermissionDeniedException(PermissionDeniedException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
+    public ResponseEntity<String> handleArithmeticException(ArithmeticException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
 }

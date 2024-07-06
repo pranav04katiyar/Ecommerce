@@ -18,7 +18,7 @@ public class ExceptionHandlers {
     public ResponseEntity<ArithmeticExceptionDTO> handleArithmeticException() {
         ArithmeticExceptionDTO arithmeticExceptionDTO = new ArithmeticExceptionDTO();
         arithmeticExceptionDTO.setMessage("Arithmetic exception occurred");
-        return new ResponseEntity<>(arithmeticExceptionDTO, HttpStatus.OK);
+        return new ResponseEntity<>(arithmeticExceptionDTO, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler(ArrayIndexOutOfBoundsException.class)
