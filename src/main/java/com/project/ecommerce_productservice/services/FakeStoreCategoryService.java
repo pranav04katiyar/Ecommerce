@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("fakeStoreCategoryService")
 public class FakeStoreCategoryService implements CategoryService{
     private RestTemplate restTemplate;
 

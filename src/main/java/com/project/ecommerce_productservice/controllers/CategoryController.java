@@ -4,6 +4,7 @@ import com.project.ecommerce_productservice.exceptions.CategoryNotFoundException
 import com.project.ecommerce_productservice.models.Category;
 import com.project.ecommerce_productservice.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(@Qualifier("selfCategoryService") CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
