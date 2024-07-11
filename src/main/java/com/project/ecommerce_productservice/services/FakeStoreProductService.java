@@ -1,7 +1,6 @@
 package com.project.ecommerce_productservice.services;
 
 import com.project.ecommerce_productservice.dtos.FakeStoreProductDTO;
-import com.project.ecommerce_productservice.exceptions.CategoryNotFoundException;
 import com.project.ecommerce_productservice.exceptions.PermissionDeniedException;
 import com.project.ecommerce_productservice.exceptions.ProductNotExistException;
 import com.project.ecommerce_productservice.models.Category;
@@ -88,6 +87,11 @@ public class FakeStoreProductService implements ProductService{
             throw new ProductNotExistException("No products found");
         }
         System.out.println("No products found");
+        return null;
+    }
+
+    @Override
+    public Product addNewProduct(SelfProductService product) throws PermissionDeniedException {
         return null;
     }
 

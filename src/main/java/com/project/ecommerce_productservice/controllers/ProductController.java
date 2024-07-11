@@ -5,6 +5,7 @@ import com.project.ecommerce_productservice.exceptions.PermissionDeniedException
 import com.project.ecommerce_productservice.exceptions.ProductNotExistException;
 import com.project.ecommerce_productservice.models.Product;
 import com.project.ecommerce_productservice.services.ProductService;
+import com.project.ecommerce_productservice.services.SelfProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<Product> addNewProduct(@RequestBody FakeStoreProductDTO product) throws PermissionDeniedException {
+    public ResponseEntity<Product> addNewProduct(@RequestBody SelfProductService product) throws PermissionDeniedException {
         return new ResponseEntity(productService.addNewProduct(product), HttpStatus.CREATED);
     }
 

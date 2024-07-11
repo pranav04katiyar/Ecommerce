@@ -4,15 +4,28 @@ import com.project.ecommerce_productservice.dtos.FakeStoreProductDTO;
 import com.project.ecommerce_productservice.exceptions.PermissionDeniedException;
 import com.project.ecommerce_productservice.exceptions.ProductNotExistException;
 import com.project.ecommerce_productservice.models.Product;
+import com.project.ecommerce_productservice.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("selfProductService")
 public class SelfProductService implements ProductService{
+    private final ProductRepository productRepository;
+
+    public SelfProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
     public Product getSingleProduct(Long id) throws ProductNotExistException {
-        return null;
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()){
+            throw new ProductNotExistException("Product with id " + id + " not found");
+        }
+        Product product = productOptional.get();
+        return product;
     }
 
     @Override
@@ -26,7 +39,12 @@ public class SelfProductService implements ProductService{
     }
 
     @Override
-    public Product addNewProduct(FakeStoreProductDTO productDTO) throws PermissionDeniedException {
+    public Product addNewProduct(SelfProductService product) throws PermissionDeniedException {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product addNewProduct(FakeStoreProductDTO productDto) throws PermissionDeniedException {
         return null;
     }
 
